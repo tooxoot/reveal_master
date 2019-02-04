@@ -17,7 +17,7 @@ mv reveal_progress_bar/reveal-progress-bar.js plugin/reveal-progress-bar
 mv reveal_agenda/reveal-agenda.js plugin/reveal-agenda
 mv reveal_css_toggle/reveal-css-toggle.js plugin/reveal-css-toggle
 
-find reveal_progress_bar/*.css | sed -i 's/.*/mv & css/' | bash
+find reveal_progress_bar/*.css | sed 's/.*/mv & css/' | bash
 
 rm -rf reveal_progress_bar
 rm -rf reveal_agenda
