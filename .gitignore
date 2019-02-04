@@ -11,5 +11,6 @@ LICENSE
 !masterjs/*
 !README.md
 !init.sh
+!remove_untracked.sh
 !.gitignore
 !index.html
