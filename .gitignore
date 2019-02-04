@@ -1,0 +1,15 @@
+node_modules
+js
+css
+lib
+plugin
+test
+LICENSE
+*.*
+
+!mastercss/*
+!masterjs/*
+!README.md
+!init.sh
+!.gitignore
+!index.html

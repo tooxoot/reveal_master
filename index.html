@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>### PRESENTATION ###</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<!-- <link rel="stylesheet" href="css/theme/black.css"> -->
+		<!-- <link rel="stylesheet" href="css/theme/simple.css"> -->
+		<link class="style" rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<script>
+			const agenda = [
+				{ id: 'layout-center', title: 'Center' },
+				{ id: 'layout-columns', title: 'Columns' },
+				{ id: 's1', title: 'Section 1', subsections: [
+					{ id: 's1-1', title: 'Subsection 1' },
+					{ id: 's1-2', title: 'Subsection 2' },
+					{ id: 's1-3', title: 'Subsection 3' },
+				] },
+				{ id: 's2', title: 'Section 2' },
+				{ id: 's3', title: 'Section 3' },
+				{ id: 's4', title: 'Section 4' },
+			]
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="layout-center" data-progress-bar-show="false">
+						<h1 class="progress-bar-no-entry">Main-Title</h1>
+				</section>
+				<section class="layout-center" data-progress-bar-id="layout-center">
+					<h1>LAYOUT-CENTER</h1>
+					<h2>Subtitle</h2>
+					<p>text text text text text text</p>
+				</section>
+
+				<section class="layout-columns" data-progress-bar-id="layout-columns">
+					<h1>LAYOUT-COLUMNS</h1>
+					<div class="layout-columns-wrapper">
+						<p>text text text text text text</p>
+						<p>text text text text text text text text text text text text</p>
+						<p>text text text text text text</p>
+						<p>text text text text text text</p>
+					</div>
+				</section>
+
+				<section class="layout-two-cloumn" data-progress-bar-id="s1">
+					<p class="fragment">fade-in</p>
+					<p class="fragment fade-out">fade-out</p>
+					<p class="fragment fade-in-then-out">fade-in-then-out</p>
+					<p class="fragment fade-in-then-semi-out">fade-in-then-semi-out</p>
+					<p class="fragment">highlight-blue</p>
+				</section>
+
+				<section data-progress-bar-id="s1">
+					<h1>Slide 2</h1>
+				</section>
+				<section data-progress-bar-id="s1" data-progress-bar-show="false">
+					<h1>Slide 2</h1>
+				</section>
+				<section data-progress-bar-id="s2">
+					<h1>Slide 2</h1>
+				</section>
+				<section data-progress-bar-id="s1">
+					<h1>Slide 2</h1>
+				</section>
+				<section data-progress-bar-id="s3">
+					<h1>Slide 2</h1>
+				</section>
+				<section data-progress-bar-id="s3">
+					<h1>Slide 2</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				controls: false,
+				slideNumber: true,
+				// overview: false,
+				progress: false,
+				center: false,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{
+						src: 'plugin/reveal-css-toggle/reveal-css-toggle.js',
+						async: true,
+						callback: function() { reveal_css_toggle.initialize({
+            				cssLists: [ ['css/theme/black.css'], ['css/theme/white.css'], ['css/theme/simple.css'], ],
+            				linkSelectorList: ['link.style'],
+						}); }
+					},
+					{ src: 'plugin/reveal-agenda/reveal-agenda.js', async: true, callback: function() { reveal_agenda.initialize({ agenda, insertToPosition: 1 }); } },
+					{ src: 'plugin/reveal-progress-bar/reveal-progress-bar.js', async: true, callback: function() { reveal_progress_bar.initialize({ agenda }); } }
+				]
+			});
+
+			Reveal.addEventListener('slidechanged', event => {
+				console.log(event)
+				console.log(Reveal.getIndices())
+			})
+		</script>
+
+		<link rel="stylesheet" href="own.css">
+	</body>
+</html>
