@@ -14,7 +14,7 @@
     height: 93%;
 }
 
-.reveal .slides .layout-center {
+.reveal .slides .layout-center, .reveal .slides .reveal-agenda {
     height: 93%;
     display: flex !important;
     flex-flow: column;
