@@ -7,10 +7,9 @@
 		<title>### PRESENTATION ###</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<!-- <link rel="stylesheet" href="css/theme/black.css"> -->
-		<!-- <link rel="stylesheet" href="css/theme/simple.css"> -->
-		<link class="style" rel="stylesheet" href="css/theme/white.css">
-
+		<link class="progress-bar-style" rel="stylesheet" href="css/reveal-progress-bar.css">
+		<link class="theme" rel="stylesheet" href="css/theme/black.css">
+		<link class="progress-bar-theme" rel="stylesheet" href="css/reveal-progress-bar-dark.css">
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 		<!-- Printing and PDF exports -->
@@ -110,8 +109,12 @@
 						src: 'plugin/reveal-css-toggle/reveal-css-toggle.js',
 						async: true,
 						callback: function() { reveal_css_toggle.initialize({
-            				cssLists: [ ['css/theme/black.css'], ['css/theme/white.css'], ['css/theme/simple.css'], ],
-            				linkSelectorList: ['link.style'],
+            				cssLists: [
+								['css/theme/black.css', 'css/reveal-progress-bar-dark.css'],
+								['css/theme/white.css', 'css/reveal-progress-bar-light.css'],
+								['css/theme/simple.css', 'css/reveal-progress-bar-light.css'],
+							],
+            				linkSelectorList: ['link.theme', 'link.progress-bar-theme'],
 						}); }
 					},
 					{ src: 'plugin/reveal-agenda/reveal-agenda.js', async: true, callback: function() { reveal_agenda.initialize({ agenda, insertToPosition: 1 }); } },
@@ -125,6 +128,7 @@
 			})
 		</script>
 
-		<link rel="stylesheet" href="own.css">
+		<link rel="stylesheet" href="/mastercss/master.css">
+		<link rel="stylesheet" href="/css/reveal-progress-bar.css">
 	</body>
 </html>
