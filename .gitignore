@@ -8,6 +8,7 @@ LICENSE
 *.*
 
 !mastercss/*
+!img/*
 !masterjs/*
 !README.md
 !init.sh

@@ -1,134 +1,275 @@
-<!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>### PRESENTATION ###</title>
+    <title>PAGETITLE</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link class="progress-bar-style" rel="stylesheet" href="css/reveal-progress-bar.css">
-		<link class="theme" rel="stylesheet" href="css/theme/black.css">
-		<link class="progress-bar-theme" rel="stylesheet" href="css/reveal-progress-bar-dark.css">
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-		<script>
-			const agenda = [
-				{ id: 'layout-center', title: 'Center' },
-				{ id: 'layout-columns', title: 'Columns' },
-				{ id: 's1', title: 'Section 1', subsections: [
-					{ id: 's1-1', title: 'Subsection 1' },
-					{ id: 's1-2', title: 'Subsection 2' },
-					{ id: 's1-3', title: 'Subsection 3' },
-				] },
-				{ id: 's2', title: 'Section 2' },
-				{ id: 's3', title: 'Section 3' },
-				{ id: 's4', title: 'Section 4' },
-			]
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section class="layout-center" data-progress-bar-show="false">
-						<h1 class="progress-bar-no-entry">Main-Title</h1>
-				</section>
-				<section class="layout-center" data-progress-bar-id="layout-center">
-					<h1>LAYOUT-CENTER</h1>
-					<h2>Subtitle</h2>
-					<p>text text text text text text</p>
-				</section>
+    <link rel="stylesheet" href="css/reveal.css" />
+    <link
+      class="progress-bar-style"
+      rel="stylesheet"
+      href="css/reveal-progress-bar.css"
+    />
+    <link class="theme" rel="stylesheet" href="css/theme/white.css" />
+    <link
+      class="progress-bar-theme"
+      rel="stylesheet"
+      href="css/reveal-progress-bar-light.css"
+    />
 
-				<section class="layout-columns" data-progress-bar-id="layout-columns">
-					<h1>LAYOUT-COLUMNS</h1>
-					<div class="layout-columns-wrapper">
-						<p>text text text text text text</p>
-						<p>text text text text text text text text text text text text</p>
-						<p>text text text text text text</p>
-						<p>text text text text text text</p>
-					</div>
-				</section>
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css" />
 
-				<section class="layout-two-cloumn" data-progress-bar-id="s1">
-					<p class="fragment">fade-in</p>
-					<p class="fragment fade-out">fade-out</p>
-					<p class="fragment fade-in-then-out">fade-in-then-out</p>
-					<p class="fragment fade-in-then-semi-out">fade-in-then-semi-out</p>
-					<p class="fragment">highlight-blue</p>
-				</section>
+    <script>
+      let fromIndices, toIndices, previousSlide, currentSlide
 
-				<section data-progress-bar-id="s1">
-					<h1>Slide 2</h1>
-				</section>
-				<section data-progress-bar-id="s1" data-progress-bar-show="false">
-					<h1>Slide 2</h1>
-				</section>
-				<section data-progress-bar-id="s2">
-					<h1>Slide 2</h1>
-				</section>
-				<section data-progress-bar-id="s1">
-					<h1>Slide 2</h1>
-				</section>
-				<section data-progress-bar-id="s3">
-					<h1>Slide 2</h1>
-				</section>
-				<section data-progress-bar-id="s3">
-					<h1>Slide 2</h1>
-				</section>
-			</div>
-		</div>
+      const setIndices = () => {
+        fromIndices = toIndices
+        toIndices = Reveal.getIndices()
+        console.log(fromIndices, toIndices)
+      }
+      const setSlide = () => {
+        previousSlide = currentSlide
+        currentSlide = Reveal.getSlide(toIndices.h, toIndices.v)
+      }
+      const standardHandlers = [console.log, setIndices, setSlide]
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+      const waiting = (e, t = 800, d = 0) => {
+        e.animate([{ opacity: 0 }, { opacity: 0 }], {
+          duration: t,
+          delay: d
+        })
+      }
+      const show = (e, t = 800, d = 0) => {
+        e.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: t,
+          delay: d
+        })
+        e.style.opacity = 1
+      }
+      const hide = (e, t = 800, d = 0) => {
+        e.animate([{ opacity: 1 }, { opacity: 0 }], {
+          duration: t,
+          delay: d
+        })
+        e.style.opacity = 0
+      }
+      const get = id =>document.getElementById(id)
 
-		<script>
+      const handlers = {
+        // slideids
+        s2: {
+          // fragment indices
+          0: {
+            show: () => {
+              const f1 = get('f1')
+              waiting(f1, 1000)
+              show(f1, 1000, 1000)
+            },
+            hide: () => {
+              const f1 = get('f1')
+              hide(f1)
+            }
+          },
+          1: {
+            show: () => {
+              const f2 = get('f3')
+              f2.animate([
+                { transform: 'translate(60%, 0) scale(2)'},
+                { transform: 'scale(1)' }
+              ], {
+                duration: 1000,
+                delay: 1000
+              })
+            },
+            hide: () => {}
+          }
+        }
+      }
 
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				controls: false,
-				slideNumber: true,
-				// overview: false,
-				progress: false,
-				center: false,
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{
-						src: 'plugin/reveal-css-toggle/reveal-css-toggle.js',
-						async: true,
-						callback: function() { reveal_css_toggle.initialize({
-            				cssLists: [
-								['css/theme/black.css', 'css/reveal-progress-bar-dark.css'],
-								['css/theme/white.css', 'css/reveal-progress-bar-light.css'],
-								['css/theme/simple.css', 'css/reveal-progress-bar-light.css'],
-							],
-            				linkSelectorList: ['link.theme', 'link.progress-bar-theme'],
-						}); }
-					},
-					{ src: 'plugin/reveal-agenda/reveal-agenda.js', async: true, callback: function() { reveal_agenda.initialize({ agenda, insertToPosition: 1 }); } },
-					{ src: 'plugin/reveal-progress-bar/reveal-progress-bar.js', async: true, callback: function() { reveal_progress_bar.initialize({ agenda }); } }
-				]
-			});
+      const hasShow = () => handlers[currentSlide.id] && handlers[currentSlide.id][toIndices.f] && handlers[currentSlide.id][toIndices.f].show
+      const handleShow = () => hasShow() && handlers[currentSlide.id][toIndices.f].show()
+      const hasHide = () => handlers[currentSlide.id] && handlers[currentSlide.id][fromIndices.f] && handlers[currentSlide.id][fromIndices.f].hide
+      const handleHide = () => hasHide() && handlers[currentSlide.id][fromIndices.f].hide()
 
-			Reveal.addEventListener('slidechanged', event => {
-				console.log(event)
-				console.log(Reveal.getIndices())
-			})
-		</script>
+      const handleChange = () => {
+        if (fromIndices.h < toIndices.h && handlers[previousSlide.id]) {
+          Object.values(handlers[previousSlide.id]).forEach(handle => handle.show && handle.show())
+        }
+        if (fromIndices.h > toIndices.h && handlers[previousSlide.id]) {
+          Object.values(handlers[previousSlide.id]).forEach(handle => handle.show && handle.hide())
+        }
+      }
 
-		<link rel="stylesheet" href="/mastercss/master.css">
-		<link rel="stylesheet" href="/css/reveal-progress-bar.css">
-	</body>
+
+      const loaders = []
+
+      const initalizers = [
+        () => {
+          fromIndices = Reveal.getIndices()
+          toIndices = Reveal.getIndices()
+          currentSlide = Reveal.getSlide(toIndices.h)
+        }
+      ]
+
+      const eventHandlers = {
+        fragmentHide: [...standardHandlers, handleHide],
+        fragmentShow: [...standardHandlers, handleShow],
+        slideChange: [...standardHandlers, handleChange]
+      }
+
+      const agenda = [
+        { id: '1', title: 'Test 1' },
+        { id: '2', title: 'Test Test 2' },
+        { id: '3', title: 'Test Test Test 3' },
+      ]
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section id="s1" class="layout-center" data-progress-bar-show="false">
+          <h1 class="progress-bar-no-entry">Some Title</h1>
+          <h4 class="progress-bar-no-entry">Smaller Title</h4>
+          <aside class="notes">
+            - NOTES &rArr; access via 's'<br />
+          </aside>
+        </section>
+
+        <section id="s2" class="layout-center" data-progress-bar-show="false">
+          <h1 class="progress-bar-no-entry">AGENDA</h1>
+          <ul style="list-style-type: none;">
+            <li id="f1" class="fragment">Test 1</li>
+            <li id="f2" class="fragment">Test Test 2</li>
+            <li id="f3" class="">Test Test Test 3</li>
+          </ul>
+        </section>
+
+        <section id="s3" class="grid-rows" data-progress-bar-id="1">
+          <h1 style="align-self: flex-start;">Slide-Title</h1>
+          <div style="align-self: stretch; overflow: hidden; height: calc(100% - 0.5em);">
+            <include src="./mastercss/test.css"></include>
+            <include src="./img/test.svg"></include>
+          </div>
+        </section>
+
+        <section id="s3" class="grid-rows" data-progress-bar-id="2">
+          <h1 style="align-self: flex-start;">Slide-Title</h1>
+          <div style="align-self: stretch; overflow: hidden; height: calc(100% - 0.5em);">
+            <include src="./img/company.test"></include>
+          </div>
+        </section>
+
+        <section id="s3" class="grid-rows" data-progress-bar-id="3">
+          <h1 style="align-self: flex-start;">Slide-Title</h1>
+          <div style="align-self: stretch; overflow: hidden; height: calc(100% - 0.5em);">
+            <div style="display: grid; grid-template-rows: 1fr; grid-template-columns: 50% 50%;">
+              <div>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque dolores, nemo, quidem laborum laudantium reprehenderit sed, doloremque dicta sapiente totam eos! Odit vel culpa nostrum voluptatem cum dicta, eos doloribus.
+              </div>
+              <div>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Atque dolores, nemo, quidem laborum laudantium reprehenderit sed, doloremque dicta sapiente totam eos! Odit vel culpa nostrum voluptatem cum dicta, eos doloribus.
+              </div>
+            </div>
+        </div>
+        </section>
+
+
+
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // replace include tags
+      for (let e of document.getElementsByTagName('include')) {
+        let src = e.getAttribute('src')
+        fetch(src)
+          .then(r => r.text())
+          .then(html => {
+            e.outerHTML = /.css$/.test(src) ? `<style>${html}</style>` : html
+          })
+      }
+
+      // Insert spans for lowercase substrings into h tags
+      document.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(e => {
+        const open = '<span>'
+        const close = '</span>'
+        let wasLower = false
+        let current = ''
+
+        for (let l of e.innerText)
+          if (/[a-zäüö]/.test(l)) {
+            current += wasLower ? l : open + l
+            wasLower = true
+          } else {
+            current += wasLower ? close + l : l
+            wasLower = false
+          }
+
+        e.innerHTML = current
+      })
+
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      window.onload = _ => {
+        loaders.forEach(l => l())
+
+        Reveal.initialize({
+          controls: false,
+          slideNumber: true,
+          // overview: false,
+          progress: false,
+          center: false,
+          dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            {
+              src: 'plugin/highlight/highlight.js',
+              async: true,
+              callback: () => hljs.initHighlightingOnLoad()
+            },
+            {
+              src: 'plugin/reveal-progress-bar/reveal-progress-bar.js',
+              async: true,
+              callback: () => reveal_progress_bar.initialize({ agenda })
+
+            }
+          ]
+        })
+
+        Reveal.configure({
+          keyboard: {
+            /* P */ 80: () => {
+              document
+                .querySelector('.reveal .slides')
+                .setAttribute('style', '')
+              print()
+            }
+          }
+        })
+
+        initalizers.forEach(initalizer => initalizer())
+
+        eventHandlers.fragmentShow.forEach(handler =>
+          Reveal.addEventListener('fragmentshown', handler)
+        )
+
+        eventHandlers.fragmentHide.forEach(handler =>
+          Reveal.addEventListener('fragmenthidden', handler)
+        )
+
+        eventHandlers.slideChange.forEach(handler =>
+          Reveal.addEventListener('slidechanged', handler)
+        )
+      }
+    </script>
+
+    <link rel="stylesheet" href="./mastercss/master.css" />
+    <link rel="stylesheet" href="./css/reveal-progress-bar.css" />
+  </body>
 </html>
