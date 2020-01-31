@@ -77,16 +77,19 @@
           },
           1: {
             show: () => {
-              const f2 = get('f3')
-              f2.animate([
-                { transform: 'translate(60%, 0) scale(2)'},
-                { transform: 'scale(1)' }
+              const f3 = get('f3')
+              f3.animate([
+                { transform: 'scale(1)' },
+                { transform: 'translate(60%, 0) scale(2)'}
               ], {
                 duration: 1000,
-                delay: 1000
+                delay: 0
               })
+              f3.style.transform = 'translate(60%, 0) scale(2)'
             },
-            hide: () => {}
+            hide: () => {
+              get('f3').style.transform = 'scale(1)'
+            }
           }
         }
       }
